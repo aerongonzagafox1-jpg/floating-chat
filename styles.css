@@ -1,0 +1,1575 @@
+/* =========================================================
+   CHAT EVERYWHERE — QUANTUM AURORA UI
+   Futuristic / Glass / Cyber / Holographic
+   ========================================================= */
+
+:root {
+    /* ---------- CORE COLORS ---------- */
+
+    --fc-bg: #05060a;
+    --fc-bg-deep: #020308;
+
+    --fc-surface: rgba(14, 18, 30, .78);
+    --fc-surface-2: rgba(20, 25, 40, .65);
+    --fc-surface-3: rgba(255, 255, 255, .035);
+
+    /* ---------- FUTURE COLOR SYSTEM ---------- */
+
+    --fc-cyan: #00f5ff;
+    --fc-blue: #3b82ff;
+    --fc-violet: #8b5cf6;
+    --fc-purple: #c026ff;
+    --fc-magenta: #ff2bd6;
+
+    --fc-green: #39ffb6;
+    --fc-lime: #b7ff4a;
+
+    --fc-white: #f4f7ff;
+    --fc-text: #dce5f5;
+    --fc-muted: #758199;
+
+    /* ---------- GLASS ---------- */
+
+    --fc-glass-border:
+        rgba(255, 255, 255, .09);
+
+    --fc-glass-highlight:
+        rgba(255, 255, 255, .06);
+
+    /* ---------- GLOWS ---------- */
+
+    --fc-cyan-glow:
+        0 0 12px rgba(0,245,255,.35),
+        0 0 40px rgba(0,245,255,.12);
+
+    --fc-violet-glow:
+        0 0 14px rgba(139,92,246,.35),
+        0 0 45px rgba(139,92,246,.12);
+
+    --fc-pink-glow:
+        0 0 14px rgba(255,43,214,.35),
+        0 0 45px rgba(255,43,214,.12);
+
+    --fc-green-glow:
+        0 0 14px rgba(57,255,182,.30),
+        0 0 40px rgba(57,255,182,.10);
+}
+
+
+/* =========================================================
+   BASE
+   ========================================================= */
+
+#fc-floating-btn,
+#fc-chatbox,
+#fc-chatbox * {
+    box-sizing: border-box;
+}
+
+#fc-chatbox {
+    color-scheme: dark;
+}
+
+
+/* =========================================================
+   FLOATING BUTTON
+   ========================================================= */
+
+#fc-floating-btn {
+    position: fixed;
+
+    right: 24px;
+    bottom: 24px;
+
+    width: 60px;
+    height: 60px;
+
+    border-radius: 18px;
+
+    border: 1px solid rgba(0,245,255,.55);
+
+    background:
+        radial-gradient(
+            circle at 25% 20%,
+            rgba(255,255,255,.18),
+            transparent 25%
+        ),
+        linear-gradient(
+            135deg,
+            #07131c,
+            #101329 45%,
+            #160a23
+        );
+
+    color: var(--fc-cyan);
+
+    font-size: 25px;
+
+    cursor: pointer;
+
+    z-index: 2147483647;
+
+    box-shadow:
+        0 18px 50px rgba(0,0,0,.8),
+        0 0 20px rgba(0,245,255,.25),
+        inset 0 1px rgba(255,255,255,.12);
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        border-color .25s ease;
+
+    animation: fc-orbit-pulse 4s ease-in-out infinite;
+}
+
+
+/* rotating holographic ring */
+
+#fc-floating-btn::before {
+    content: "";
+
+    position: absolute;
+
+    inset: -5px;
+
+    border-radius: 22px;
+
+    background:
+        conic-gradient(
+            from 0deg,
+            transparent,
+            var(--fc-cyan),
+            transparent 25%,
+            var(--fc-violet),
+            transparent 55%,
+            var(--fc-magenta),
+            transparent 80%
+        );
+
+    opacity: .55;
+
+    z-index: -1;
+
+    animation:
+        fc-rotate 5s linear infinite;
+
+    filter: blur(2px);
+}
+
+
+/* inner glass */
+
+#fc-floating-btn::after {
+    content: "";
+
+    position: absolute;
+
+    inset: 1px;
+
+    border-radius: 17px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.08),
+            transparent 50%
+        );
+
+    pointer-events: none;
+}
+
+
+#fc-floating-btn:hover {
+    transform:
+        translateY(-5px)
+        scale(1.08);
+
+    border-color:
+        var(--fc-cyan);
+
+    box-shadow:
+        0 25px 60px rgba(0,0,0,.9),
+        0 0 30px rgba(0,245,255,.45),
+        0 0 65px rgba(139,92,246,.18);
+}
+
+
+/* =========================================================
+   CHAT WINDOW
+   ========================================================= */
+
+#fc-chatbox {
+    position: fixed;
+
+    right: 24px;
+    bottom: 98px;
+
+    width: 415px;
+    height: 600px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    overflow: hidden;
+
+    border-radius: 22px;
+
+    border:
+        1px solid rgba(255,255,255,.10);
+
+    background:
+        radial-gradient(
+            circle at 0% 0%,
+            rgba(0,245,255,.10),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 100% 0%,
+            rgba(192,38,255,.12),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 50% 100%,
+            rgba(59,130,255,.08),
+            transparent 35%
+        ),
+        rgba(4,6,13,.94);
+
+    color: var(--fc-text);
+
+    font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    z-index: 2147483647;
+
+    box-shadow:
+        0 35px 110px rgba(0,0,0,.90),
+        0 0 70px rgba(0,245,255,.07),
+        inset 0 1px rgba(255,255,255,.08);
+
+    backdrop-filter:
+        blur(30px)
+        saturate(150%);
+
+    -webkit-backdrop-filter:
+        blur(30px)
+        saturate(150%);
+
+    animation:
+        fc-window-enter .35s cubic-bezier(.2,.8,.2,1);
+}
+
+
+/* =========================================================
+   HOLOGRAPHIC GRID
+   ========================================================= */
+
+#fc-chatbox::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    opacity: .035;
+
+    background-image:
+        linear-gradient(
+            rgba(0,245,255,.5) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(0,245,255,.5) 1px,
+            transparent 1px
+        );
+
+    background-size:
+        35px 35px;
+
+    mask-image:
+        linear-gradient(
+            to bottom,
+            black,
+            transparent 85%
+        );
+}
+
+
+/* scanline */
+
+#fc-chatbox::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    right: 0;
+
+    height: 1px;
+
+    top: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            var(--fc-cyan),
+            var(--fc-violet),
+            var(--fc-magenta),
+            transparent
+        );
+
+    box-shadow:
+        0 0 15px var(--fc-cyan);
+
+    opacity: .7;
+
+    animation:
+        fc-scanline 5s linear infinite;
+
+    pointer-events: none;
+
+    z-index: 20;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+#fc-chatbox-header {
+    position: relative;
+
+    height: 68px;
+    min-height: 68px;
+
+    padding: 0 18px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(8,20,31,.92),
+            rgba(18,11,35,.92)
+        );
+
+    border-bottom:
+        1px solid rgba(255,255,255,.08);
+
+    overflow: hidden;
+}
+
+
+/* glowing header horizon */
+
+#fc-chatbox-header::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    bottom: 0;
+
+    width: 100%;
+    height: 1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent 5%,
+            var(--fc-cyan) 25%,
+            var(--fc-violet) 50%,
+            var(--fc-magenta) 75%,
+            transparent 95%
+        );
+
+    box-shadow:
+        0 0 14px rgba(0,245,255,.6);
+}
+
+
+.fc-title {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    letter-spacing: .4px;
+
+    color: var(--fc-white);
+
+    text-shadow:
+        0 0 15px rgba(0,245,255,.25);
+}
+
+
+/* futuristic status indicator */
+
+.fc-title::before {
+    content: "";
+
+    width: 9px;
+    height: 9px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            white 0%,
+            var(--fc-cyan) 35%,
+            #008cff 70%
+        );
+
+    box-shadow:
+        0 0 8px var(--fc-cyan),
+        0 0 20px var(--fc-cyan);
+
+    animation:
+        fc-status-pulse 2s ease-in-out infinite;
+}
+
+
+#fc-chatbox-close {
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 10px;
+
+    border:
+        1px solid rgba(255,255,255,.10);
+
+    background:
+        rgba(255,255,255,.035);
+
+    color: #aeb8ca;
+
+    font-size: 20px;
+
+    cursor: pointer;
+
+    transition: .25s ease;
+}
+
+#fc-chatbox-close:hover {
+    transform: rotate(90deg);
+
+    color: white;
+
+    border-color:
+        rgba(255,43,214,.65);
+
+    background:
+        rgba(255,43,214,.12);
+
+    box-shadow:
+        var(--fc-pink-glow);
+}
+
+
+/* =========================================================
+   TABS
+   ========================================================= */
+
+#fc-chatbox-tabs {
+    height: 53px;
+    min-height: 53px;
+
+    display: flex;
+
+    gap: 4px;
+
+    padding: 6px;
+
+    background:
+        rgba(3,5,11,.78);
+
+    border-bottom:
+        1px solid rgba(255,255,255,.06);
+}
+
+.fc-tab {
+    position: relative;
+
+    flex: 1;
+
+    border:
+        1px solid transparent;
+
+    border-radius: 9px;
+
+    background: transparent;
+
+    color: #657086;
+
+    cursor: pointer;
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    transition: .22s ease;
+}
+
+.fc-tab:hover {
+    color: var(--fc-white);
+
+    background:
+        rgba(0,245,255,.045);
+
+    border-color:
+        rgba(0,245,255,.12);
+}
+
+
+.fc-tab.active {
+    color: var(--fc-cyan);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(0,245,255,.09),
+            rgba(139,92,246,.09)
+        );
+
+    border-color:
+        rgba(0,245,255,.22);
+
+    box-shadow:
+        inset 0 0 18px rgba(0,245,255,.035);
+}
+
+
+.fc-tab.active::after {
+    content: "";
+
+    position: absolute;
+
+    left: 18%;
+    right: 18%;
+
+    bottom: -6px;
+
+    height: 2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            var(--fc-cyan),
+            var(--fc-violet),
+            transparent
+        );
+
+    box-shadow:
+        0 0 10px var(--fc-cyan);
+}
+
+
+/* =========================================================
+   CONTENT
+   ========================================================= */
+
+#fc-chatbox-content {
+    flex: 1;
+
+    min-height: 0;
+
+    background:
+        radial-gradient(
+            ellipse at 50% 0%,
+            rgba(0,245,255,.055),
+            transparent 45%
+        ),
+        rgba(2,4,9,.72);
+}
+
+
+/* =========================================================
+   PANELS
+   ========================================================= */
+
+.fc-panel {
+    display: none;
+
+    width: 100%;
+    height: 100%;
+
+    padding: 17px;
+
+    overflow-y: auto;
+
+    scrollbar-width: thin;
+
+    scrollbar-color:
+        rgba(0,245,255,.45)
+        transparent;
+}
+
+.fc-panel.active {
+    display: block;
+}
+
+
+.fc-panel::-webkit-scrollbar {
+    width: 4px;
+}
+
+.fc-panel::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.fc-panel::-webkit-scrollbar-thumb {
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            var(--fc-cyan),
+            var(--fc-violet)
+        );
+}
+
+
+/* =========================================================
+   CHAT MESSAGES
+   ========================================================= */
+
+#fc-chatbox-messages {
+    height: 100%;
+
+    padding: 3px;
+
+    overflow-y: auto;
+}
+
+
+.fc-message {
+    position: relative;
+
+    max-width: 82%;
+
+    padding: 11px 14px;
+
+    margin-bottom: 12px;
+
+    border-radius: 13px;
+
+    font-size: 13px;
+
+    line-height: 1.55;
+
+    word-wrap: break-word;
+
+    animation:
+        fc-message-in .25s ease;
+}
+
+
+/* AI / BOT */
+
+.fc-message.bot {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.055),
+            rgba(255,255,255,.018)
+        );
+
+    border:
+        1px solid rgba(255,255,255,.085);
+
+    color:
+        #dbe4f3;
+
+    border-bottom-left-radius: 4px;
+
+    box-shadow:
+        inset 0 1px rgba(255,255,255,.045);
+}
+
+
+/* user */
+
+.fc-message.user {
+    margin-left: auto;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(0,112,255,.85),
+            rgba(126,40,255,.85)
+        );
+
+    border:
+        1px solid rgba(0,245,255,.32);
+
+    color: white;
+
+    border-bottom-right-radius: 4px;
+
+    box-shadow:
+        0 8px 25px rgba(55,80,255,.18),
+        inset 0 1px rgba(255,255,255,.12);
+}
+
+
+/* =========================================================
+   TITLES
+   ========================================================= */
+
+.fc-section-title {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 17px;
+
+    color: var(--fc-white);
+
+    font-size: 18px;
+
+    font-weight: 700;
+
+    letter-spacing: .2px;
+}
+
+
+.fc-section-title::before {
+    content: "";
+
+    width: 4px;
+    height: 21px;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            180deg,
+            var(--fc-cyan),
+            var(--fc-violet)
+        );
+
+    box-shadow:
+        0 0 12px var(--fc-cyan);
+}
+
+
+/* =========================================================
+   FUTURE BUTTON
+   ========================================================= */
+
+.fc-gold-button {
+    position: relative;
+
+    padding: 10px 15px;
+
+    border:
+        1px solid rgba(0,245,255,.45);
+
+    border-radius: 9px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(0,245,255,.14),
+            rgba(139,92,246,.18)
+        );
+
+    color:
+        var(--fc-cyan);
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    overflow: hidden;
+
+    transition: .22s ease;
+
+    box-shadow:
+        0 0 12px rgba(0,245,255,.08);
+}
+
+
+.fc-gold-button::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            110deg,
+            transparent 30%,
+            rgba(255,255,255,.16),
+            transparent 70%
+        );
+
+    transform:
+        translateX(-120%);
+
+    transition:
+        transform .5s ease;
+}
+
+
+.fc-gold-button:hover::before {
+    transform:
+        translateX(120%);
+}
+
+
+.fc-gold-button:hover {
+    transform:
+        translateY(-2px);
+
+    color: white;
+
+    border-color:
+        var(--fc-cyan);
+
+    box-shadow:
+        var(--fc-cyan-glow);
+}
+
+
+/* =========================================================
+   MEDIA
+   ========================================================= */
+
+#fc-media-gallery {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 10px;
+
+    margin-top: 15px;
+}
+
+
+.fc-media-item {
+    padding: 8px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.045),
+            rgba(255,255,255,.012)
+        );
+
+    border:
+        1px solid rgba(255,255,255,.075);
+
+    border-radius: 11px;
+
+    overflow: hidden;
+
+    transition: .25s ease;
+}
+
+
+.fc-media-item:hover {
+    transform:
+        translateY(-3px);
+
+    border-color:
+        rgba(0,245,255,.35);
+
+    box-shadow:
+        var(--fc-cyan-glow);
+}
+
+
+.fc-media-item img,
+.fc-media-item video {
+    width: 100%;
+
+    max-height: 120px;
+
+    object-fit: cover;
+
+    border-radius: 7px;
+}
+
+
+.fc-media-item span {
+    display: block;
+
+    margin-top: 7px;
+
+    color:
+        var(--fc-muted);
+
+    font-size: 11px;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+}
+
+
+.fc-media-item audio {
+    width: 100%;
+}
+
+
+/* =========================================================
+   GROUP CARDS
+   ========================================================= */
+
+.fc-group-card {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 12px;
+
+    margin-top: 10px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.045),
+            rgba(255,255,255,.012)
+        );
+
+    border:
+        1px solid rgba(255,255,255,.075);
+
+    border-radius: 11px;
+
+    transition: .25s ease;
+}
+
+
+.fc-group-card:hover {
+    transform:
+        translateX(3px);
+
+    border-color:
+        rgba(139,92,246,.45);
+
+    box-shadow:
+        var(--fc-violet-glow);
+}
+
+
+.fc-group-icon {
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 11px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(0,245,255,.13),
+            rgba(192,38,255,.15)
+        );
+
+    border:
+        1px solid rgba(0,245,255,.18);
+
+    color: var(--fc-cyan);
+
+    font-size: 20px;
+
+    box-shadow:
+        inset 0 0 18px rgba(0,245,255,.05);
+}
+
+
+.fc-group-info {
+    flex: 1;
+}
+
+.fc-group-info strong {
+    display: block;
+
+    color: var(--fc-white);
+}
+
+.fc-group-info small {
+    color: var(--fc-muted);
+}
+
+
+.fc-delete-group {
+    border: none;
+
+    background: transparent;
+
+    color: #647087;
+
+    font-size: 18px;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+
+.fc-delete-group:hover {
+    color: var(--fc-magenta);
+
+    text-shadow:
+        0 0 12px var(--fc-magenta);
+}
+
+
+/* =========================================================
+   SHARES
+   ========================================================= */
+
+.fc-share-form {
+    display: flex;
+
+    gap: 7px;
+
+    margin-bottom: 15px;
+}
+
+
+#fc-share-input {
+    flex: 1;
+
+    min-width: 0;
+
+    height: 40px;
+
+    padding: 0 12px;
+
+    background:
+        rgba(255,255,255,.035);
+
+    color: white;
+
+    border:
+        1px solid rgba(255,255,255,.10);
+
+    border-radius: 9px;
+
+    outline: none;
+
+    transition: .2s;
+}
+
+
+#fc-share-input:focus {
+    border-color:
+        var(--fc-violet);
+
+    box-shadow:
+        var(--fc-violet-glow);
+}
+
+
+.fc-share-card {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 11px;
+
+    margin-bottom: 9px;
+
+    background:
+        rgba(255,255,255,.035);
+
+    border:
+        1px solid rgba(255,255,255,.07);
+
+    border-radius: 10px;
+}
+
+
+.fc-share-icon {
+    color: var(--fc-cyan);
+
+    font-size: 20px;
+
+    filter:
+        drop-shadow(
+            0 0 7px rgba(0,245,255,.45)
+        );
+}
+
+
+.fc-share-info {
+    flex: 1;
+
+    min-width: 0;
+}
+
+
+.fc-share-info strong {
+    display: block;
+
+    color: var(--fc-white);
+}
+
+
+.fc-share-info small {
+    display: block;
+
+    margin-top: 4px;
+
+    color: var(--fc-muted);
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+}
+
+
+.fc-copy-share {
+    border:
+        1px solid rgba(0,245,255,.25);
+
+    background:
+        rgba(0,245,255,.045);
+
+    color:
+        var(--fc-cyan);
+
+    border-radius: 7px;
+
+    padding: 6px 9px;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+
+.fc-copy-share:hover {
+    color: white;
+
+    background:
+        rgba(0,245,255,.12);
+
+    box-shadow:
+        var(--fc-cyan-glow);
+}
+
+
+/* =========================================================
+   TOOLS
+   ========================================================= */
+
+.fc-tool-button {
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    padding: 14px;
+
+    margin-bottom: 9px;
+
+    border:
+        1px solid rgba(255,255,255,.075);
+
+    border-radius: 11px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.045),
+            rgba(255,255,255,.012)
+        );
+
+    color:
+        var(--fc-text);
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition: .25s ease;
+}
+
+
+.fc-tool-button:hover {
+    transform:
+        translateX(4px);
+
+    border-color:
+        rgba(0,245,255,.3);
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(0,245,255,.08),
+            rgba(139,92,246,.08)
+        );
+
+    color: white;
+
+    box-shadow:
+        var(--fc-cyan-glow);
+}
+
+
+.fc-tool-button span {
+    display: flex;
+
+    flex-direction: column;
+}
+
+
+.fc-tool-button small {
+    margin-top: 3px;
+
+    color:
+        var(--fc-muted);
+}
+
+
+/* =========================================================
+   INPUT
+   ========================================================= */
+
+#fc-chatbox-input-row {
+    display: flex;
+
+    gap: 8px;
+
+    padding: 11px;
+
+    background:
+        rgba(3,5,10,.95);
+
+    border-top:
+        1px solid rgba(255,255,255,.07);
+}
+
+
+#fc-chatbox-input {
+    flex: 1;
+
+    min-width: 0;
+
+    height: 43px;
+
+    padding: 0 13px;
+
+    border:
+        1px solid rgba(255,255,255,.10);
+
+    border-radius: 10px;
+
+    outline: none;
+
+    background:
+        rgba(255,255,255,.035);
+
+    color: white;
+
+    font-size: 13px;
+
+    transition: .22s ease;
+}
+
+
+#fc-chatbox-input::placeholder {
+    color:
+        #586276;
+}
+
+
+#fc-chatbox-input:focus {
+    border-color:
+        var(--fc-cyan);
+
+    box-shadow:
+        0 0 0 1px rgba(0,245,255,.08),
+        var(--fc-cyan-glow);
+}
+
+
+/* =========================================================
+   SEND
+   ========================================================= */
+
+#fc-chatbox-send {
+    height: 43px;
+
+    padding: 0 17px;
+
+    border:
+        1px solid rgba(0,245,255,.55);
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #087f9c,
+            #3b55c7
+        );
+
+    color: white;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: .22s ease;
+
+    box-shadow:
+        0 0 12px rgba(0,245,255,.12);
+}
+
+
+#fc-chatbox-send:hover {
+    transform:
+        translateY(-2px);
+
+    background:
+        linear-gradient(
+            135deg,
+            #00aeca,
+            #7047d8
+        );
+
+    box-shadow:
+        var(--fc-cyan-glow);
+}
+
+
+/* =========================================================
+   SEARCH RESULT
+   ========================================================= */
+
+.fc-search-result {
+    outline:
+        1px solid var(--fc-cyan);
+
+    box-shadow:
+        0 0 15px rgba(0,245,255,.3);
+
+    animation:
+        fc-target-pulse 1.5s ease-in-out infinite;
+}
+
+
+/* =========================================================
+   ANIMATIONS
+   ========================================================= */
+
+@keyframes fc-window-enter {
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(18px)
+            scale(.96);
+
+        filter:
+            blur(5px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+
+        filter:
+            blur(0);
+    }
+}
+
+
+@keyframes fc-message-in {
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(7px)
+            scale(.98);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+
+@keyframes fc-rotate {
+    to {
+        transform:
+            rotate(360deg);
+    }
+}
+
+
+@keyframes fc-orbit-pulse {
+    0%, 100% {
+        box-shadow:
+            0 18px 50px rgba(0,0,0,.8),
+            0 0 20px rgba(0,245,255,.20);
+    }
+
+    50% {
+        box-shadow:
+            0 18px 50px rgba(0,0,0,.8),
+            0 0 32px rgba(0,245,255,.38),
+            0 0 55px rgba(139,92,246,.10);
+    }
+}
+
+
+@keyframes fc-status-pulse {
+    0%, 100% {
+        opacity: .65;
+        transform: scale(.85);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+}
+
+
+@keyframes fc-scanline {
+    0% {
+        transform:
+            translateY(-5px);
+    }
+
+    100% {
+        transform:
+            translateY(600px);
+    }
+}
+
+
+@keyframes fc-target-pulse {
+    0%, 100% {
+        box-shadow:
+            0 0 8px rgba(0,245,255,.15);
+    }
+
+    50% {
+        box-shadow:
+            0 0 25px rgba(0,245,255,.4);
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+    #fc-chatbox {
+        width:
+            calc(100vw - 16px);
+
+        height:
+            75vh;
+
+        right:
+            8px;
+
+        bottom:
+            84px;
+
+        border-radius:
+            17px;
+    }
+
+    #fc-floating-btn {
+        width: 56px;
+        height: 56px;
+
+        right: 15px;
+        bottom: 15px;
+
+        border-radius: 16px;
+    }
+
+    .fc-tab {
+        font-size: 9px;
+    }
+
+    .fc-panel {
+        padding: 13px;
+    }
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration:
+            .01ms !important;
+
+        animation-iteration-count:
+            1 !important;
+
+        transition-duration:
+            .01ms !important;
+    }
+}
